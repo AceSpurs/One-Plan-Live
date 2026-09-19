@@ -20,6 +20,18 @@ Plan the business in one place: **account plans** and **product stock & sales**,
 2. Account WSSI frames the marketplace (business planner)  
 3. Product stock & sales must balance to that frame (retail planners)
 
+## SSP Phase 1 (Product S&S)
+
+Product Stock & Sales Plan replaces the thin sales£ / stock-units table:
+
+- Per product × Y1 Q1–Q4: forecast, cancel% planned/actual, net sales, buy, open/close inventory, RTV%, target WOH13
+- Computed WOH13 and Unit Risk (Nike formulas)
+- Channel tag (Lifestyle vs Sporting goods) stored for Phase 2
+- Plan balance: **S&S £ = Σ(net sales units × ASP)** across products (Y1 annual), aligned to Account WSSI
+- Wizard and AI demo seed full SSP fields
+
+Phase 2 (not in this release): R/A/G risk flags, tip rail, ST% UI emphasis, deeper channel logic.
+
 ## Team
 
 | Role | Focus |
