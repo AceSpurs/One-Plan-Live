@@ -29,8 +29,11 @@ Product Stock & Sales Plan replaces the thin sales£ / stock-units table:
 - Channel tag (Lifestyle vs Sporting goods) stored for Phase 2
 - Plan balance: **S&S £ = Σ(net sales units × ASP)** across products (Y1 annual), aligned to Account WSSI
 - Wizard and AI demo seed full SSP fields
+- Exact WSSI↔S&S £ close via 2-dp ASP + residual £ adj on last SKU
 
 Phase 2 (not in this release): R/A/G risk flags, tip rail, ST% UI emphasis, deeper channel logic.
+
+**Note:** `index.html` uses a small gzip bootstrap that expands in-browser to the full single-page app (DecompressionStream).
 
 ## Team
 
