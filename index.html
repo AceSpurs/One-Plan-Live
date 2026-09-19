@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>One Plan Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+<style>
+:root{--ink:#14201a;--muted:#5c6b62;--line:#d7e0d9;--paper:#f6f8f5;--card:#fff;--green:#1f6b45;--green2:#2f8f5b;--green-soft:#e8f5ee;--amber:#b86e00;--amber-soft:#fff4e0;--coral:#b42318;--coral-soft:#fdecea;--shadow:0 10px 30px rgba(20,32,26,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink)}
+h1,h2,h3{font-family:'DM Serif Display',Georgia,serif;font-weight:400}button,input,select{font:inherit}
+.hidden{display:none!important}
+#gate{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(900px 400px at 10% -10%,#d9f0e3,transparent),var(--paper)}
+.gate-card{width:min(720px,100%);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px 32px;box-shadow:var(--shadow)}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);font-weight:600;margin-bottom:10px}
+.gate-card h1{font-size:42px;margin:0 0 8px;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:16px;line-height:1.5;margin:0 0 28px}
+.choices{display:grid;gap:14px}
+.choice{text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:18px;cursor:pointer}
+.choice:hover{border-color:var(--green2);box-shadow:0 0 0 3px var(--green-soft)}
+.choice strong{display:block;font-size:16px;margin-bottom:4px}
+.choice span{color:var(--muted);font-size:14px;line-height:1.4}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--amber-soft);color:var(--amber);margin-left:8px}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.side{background:#10241a;color:#e8f2ec;padding:22px 18px;display:flex;flex-direction:column;gap:18px}
+.logo{font-family:'DM Serif Display',serif;font-size:28px}
+.logo small{display:block;font-family:'DM Sans',sans-serif;font-size:11px;opacity:.65;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+.nav button{width:100%;text-align:left;background:transparent;border:0;color:#d7e8de;padding:10px 12px;border-radius:10px;cursor:pointer}
+.nav button.active,.nav button:hover{background:rgba(255,255,255,.08);color:#fff}
+.main{padding:28px 32px 48px}
+.topbar{display:flex;justify-content:space-between;gap:16px;margin-bottom:22px}
+.topbar h2{margin:0;font-size:32px}
+.pill{font-size:12px;padding:6px 10px;border-radius:999px;background:var(--green-soft);color:var(--green);font-weight:600;height:fit-content}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kpi .l{font-size:12px;color:var(--muted);margin-bottom:6px}
+.kpi .v{font-size:24px;font-family:'DM Serif Display',serif}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.panel h3{margin:0 0 12px;font-size:22px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{font-size:12px;color:var(--muted);font-weight:600}
+input.num{width:110px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;text-align:right}
+.match{padding:12px 14px;border-radius:12px;font-weight:600;font-size:14px;margin-bottom:16px}
+.match.ok{background:var(--green-soft);color:var(--green)}
+.match.bad{background:var(--coral-soft);color:var(--coral)}
+.cascade{display:grid;gap:10px}
+.casc-level{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}
+.casc-level .title{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
+.bar{height:10px;background:#eef3ef;border-radius:999px;overflow:hidden;margin:4px 0 8px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green2))}
+.hint{color:var(--muted);font-size:13px;line-height:1.45}
+@media(max-width:900px){.app{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<section id="gate">
+  <div class="gate-card">
+    <div class="eyebrow">One Plan Live · business planning</div>
+    <h1>Plan the business in one place</h1>
+    <p class="sub">Join <strong>account plans</strong> and <strong>product stock &amp; sales</strong> so growth, marketplace, and product need stay honest. <strong>One Plan Live</strong> is the live business planning tool — not the Lab playground, not the production showcase.</p>
+    <div class="choices">
+      <button class="choice" type="button" onclick="startWizard()">
+        <strong>Start with a pre-filled wizard</strong>
+        <span>Walk the account path with sensible defaults you can edit.</span>
+      </button>
+      <button class="choice" type="button" onclick="startAI()">
+        <strong>Open an AI-completed mock business <span class="badge">AI</span></strong>
+        <span>Jump into a finished Apex Athletic plan already balanced — demo data generated for you.</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="app" class="app hidden">
+  <aside class="side">
+    <div class="logo">One Plan <small>Live · Account path</small></div>
+    <nav class="nav">
+      <button type="button" class="active" data-view="cascade" onclick="showView('cascade')">One Plan cascade</button>
+      <button type="button" data-view="wssi" onclick="showView('wssi')">Account WSSI</button>
+      <button type="button" data-view="products" onclick="showView('products')">Product S&amp;S</button>
+      <button type="button" data-view="stores" onclick="showView('stores')">Stores</button>
+    </nav>
+    <div class="hint" style="margin-top:auto;color:#b7cfc2">Lab and production showcase remain separate.</div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h2 id="viewTitle">One Plan cascade</h2>
+        <div class="hint" id="viewSub">Growth → accounts → products, with matching totals</div>
+      </div>
+      <div class="pill" id="brandPill">Apex Athletic</div>
+    </div>
+    <div class="grid">
+      <div class="kpi"><div class="l">Business growth (Y1)</div><div class="v" id="kGrowth">—</div></div>
+      <div class="kpi"><div class="l">Account WSSI total</div><div class="v" id="kWssi">—</div></div>
+      <div class="kpi"><div class="l">Product S&amp;S total</div><div class="v" id="kProd">—</div></div>
+      <div class="kpi"><div class="l">Plan balance</div><div class="v" id="kGap">—</div></div>
+    </div>
+    <div id="balanceBanner" class="match ok">Plans match</div>
+
+    <div id="view-cascade" class="panel">
+      <h3>Account path</h3>
+      <p class="hint">Business planner owns the account WSSI. Retail planners own product stock &amp; sales. Totals must match.</p>
+      <div class="cascade" id="cascade"></div>
+    </div>
+
+    <div id="view-wssi" class="panel hidden">
+      <h3>Account WSSI</h3>
+      <p class="hint">Top-line by account — owned by the business planner.</p>
+      <table>
+        <thead><tr><th>Account</th><th>Stores</th><th>Sales £</th><th>Share</th></tr></thead>
+        <tbody id="wssiBody"></tbody>
+      </table>
+    </div>
+
+    <div id="view-products" class="panel hidden">
+      <h3>Product stock &amp; sales</h3>
+      <p class="hint">Account retail planners input product plans. Sum should equal account WSSI.</p>
+      <table>
+        <thead><tr><th>Product</th><th>Lifecycle</th><th>Sales £</th><th>Stock units</th></tr></thead>
+        <tbody id="prodBody"></tbody>
+      </table>
+    </div>
+
+    <div id="view-stores" class="panel hidden">
+      <h3>Store plans</h3>
+      <p class="hint">Store-level contribution into the selected account.</p>
+      <div class="row">
+        <label>Account
+          <select id="storeAccount" onchange="renderStores()"></select>
+        </label>
+      </div>
+      <table>
+        <thead><tr><th>Store</th><th>Sales £</th><th>% of account</th></tr></thead>
+        <tbody id="storeBody"></tbody>
+      </table>
+    </div>
+  </main>
+</section>
+
+<script>
+const fmt = n => '£' + Math.round(n).toLocaleString('en-GB');
+const state = { brand:'Apex Athletic', accounts:[], products:[], stores:{} };
+function rand(min,max){return Math.round(min+Math.random()*(max-min));}
+
+function buildDemo(seeded){
+  const accounts=[
+    {name:'JD Sports',stores:48,sales:seeded?4200000:rand(2800000,5200000)},
+    {name:'Sports Direct',stores:36,sales:seeded?3100000:rand(2000000,4000000)},
+    {name:'Apex DTC',stores:12,sales:seeded?1900000:rand(1200000,2400000)},
+    {name:'Foot Locker',stores:22,sales:seeded?1500000:rand(900000,2100000)},
+  ];
+  const total=accounts.reduce((s,a)=>s+a.sales,0);
+  const productsRaw=[
+    {name:'Velocity Runner',lifecycle:'Scale'},
+    {name:'Court Pro Tee',lifecycle:'Ignite'},
+    {name:'Trail Shield Jacket',lifecycle:'Seed'},
+    {name:'Studio Flex Tight',lifecycle:'Maintain'},
+    {name:'Match Day Cap',lifecycle:'Scale'},
+  ];
+  let weights=productsRaw.map(()=>seeded?1:Math.random()+0.35);
+  const wsum=weights.reduce((a,b)=>a+b,0);
+  const products=productsRaw.map((p,i)=>({
+    ...p,
+    sales:Math.round(total*(weights[i]/wsum)),
+    stock:seeded?[18000,12000,6000,9000,15000][i]:rand(4000,22000)
+  }));
+  const psum=products.reduce((s,p)=>s+p.sales,0);
+  products[products.length-1].sales += (total-psum);
+
+  const stores={};
+  accounts.forEach(a=>{
+    const n=Math.min(5,Math.max(3,Math.round(a.stores/10)));
+    let sw=Array.from({length:n},()=>Math.random()+0.2);
+    const ss=sw.reduce((x,y)=>x+y,0);
+    stores[a.name]=sw.map((w,i)=>({name:`${a.name.split(' ')[0]} #${100+i}`,sales:Math.round(a.sales*(w/ss))}));
+    stores[a.name][0].sales += a.sales - stores[a.name].reduce((s,x)=>s+x.sales,0);
+  });
+  state.accounts=accounts; state.products=products; state.stores=stores;
+}
+
+function wssiTotal(){return state.accounts.reduce((s,a)=>s+a.sales,0);}
+function prodTotal(){return state.products.reduce((s,p)=>s+p.sales,0);}
+
+function renderKPIs(){
+  const w=wssiTotal(), p=prodTotal(), gap=p-w;
+  document.getElementById('kGrowth').textContent=fmt(w);
+  document.getElementById('kWssi').textContent=fmt(w);
+  document.getElementById('kProd').textContent=fmt(p);
+  document.getElementById('kGap').textContent=gap===0?'Matched':fmt(Math.abs(gap))+(gap>0?' over':' under');
+  const b=document.getElementById('balanceBanner');
+  if(gap===0){b.className='match ok';b.textContent='Account WSSI and Product S&S match — plan is balanced.';}
+  else{b.className='match bad';b.textContent=`Gap ${fmt(Math.abs(gap))} — account frame and product plans do not match yet.`;}
+}
+
+function renderCascade(){
+  const w=wssiTotal();
+  document.getElementById('cascade').innerHTML=`
+    <div class="casc-level">
+      <div class="title"><strong>Business growth</strong><span>${fmt(w)}</span></div>
+      <div class="bar"><i style="width:100%"></i></div>
+    </div>
+    <div class="casc-level">
+      <div class="title"><strong>Accounts (marketplace)</strong><span>${state.accounts.length} partners</span></div>
+      ${state.accounts.map(a=>`<div class="row" style="justify-content:space-between"><span>${a.name}</span><span>${fmt(a.sales)} · ${Math.round(a.sales/w*100)}%</span></div><div class="bar"><i style="width:${Math.round(a.sales/w*100)}%"></i></div>`).join('')}
+    </div>
+    <div class="casc-level">
+      <div class="title"><strong>Products (what we need)</strong><span>${state.products.length} lines</span></div>
+      ${state.products.map(p=>`<div class="row" style="justify-content:space-between"><span>${p.name} · ${p.lifecycle}</span><span>${fmt(p.sales)}</span></div>`).join('')}
+    </div>`;
+}
+
+function renderWssi(){
+  const w=wssiTotal();
+  document.getElementById('wssiBody').innerHTML=state.accounts.map((a,i)=>`
+    <tr>
+      <td>${a.name}</td><td>${a.stores}</td>
+      <td><input class="num" type="number" value="${a.sales}" onchange="updateAccount(${i},this.value)" /></td>
+      <td>${Math.round(a.sales/w*100)}%</td>
+    </tr>`).join('');
+}
+
+function renderProducts(){
+  document.getElementById('prodBody').innerHTML=state.products.map((p,i)=>`
+    <tr>
+      <td>${p.name}</td><td>${p.lifecycle}</td>
+      <td><input class="num" type="number" value="${p.sales}" onchange="updateProduct(${i},'sales',this.value)" /></td>
+      <td><input class="num" type="number" value="${p.stock}" onchange="updateProduct(${i},'stock',this.value)" /></td>
+    </tr>`).join('');
+}
+
+function renderStores(){
+  const sel=document.getElementById('storeAccount');
+  if([...sel.options].map(o=>o.value).join()!==state.accounts.map(a=>a.name).join()){
+    sel.innerHTML=state.accounts.map(a=>`<option value="${a.name}">${a.name}</option>`).join('');
+  }
+  const name=sel.value||state.accounts[0].name;
+  const rows=state.stores[name]||[];
+  const tot=rows.reduce((s,r)=>s+r.sales,0)||1;
+  document.getElementById('storeBody').innerHTML=rows.map(r=>`
+    <tr><td>${r.name}</td><td>${fmt(r.sales)}</td><td>${Math.round(r.sales/tot*100)}%</td></tr>`).join('');
+}
+
+function updateAccount(i,val){
+  state.accounts[i].sales=Math.max(0,Math.round(+val||0));
+  const a=state.accounts[i];
+  const rows=state.stores[a.name];
+  if(rows&&rows.length){
+    const old=rows.reduce((s,r)=>s+r.sales,0)||1;
+    rows.forEach(r=>r.sales=Math.round(r.sales/old*a.sales));
+    rows[0].sales+=a.sales-rows.reduce((s,r)=>s+r.sales,0);
+  }
+  renderAll();
+}
+function updateProduct(i,field,val){
+  state.products[i][field]=Math.max(0,Math.round(+val||0));
+  renderAll();
+}
+function renderAll(){renderKPIs();renderCascade();renderWssi();renderProducts();renderStores();}
+
+function showView(id){
+  ['cascade','wssi','products','stores'].forEach(v=>{
+    document.getElementById('view-'+v).classList.toggle('hidden',v!==id);
+  });
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+  const titles={
+    cascade:['One Plan cascade','Growth → accounts → products, with matching totals'],
+    wssi:['Account WSSI','Business planner frame for the marketplace'],
+    products:['Product stock & sales','Retail planner product plans — must match WSSI'],
+    stores:['Stores','Store contribution into the account WSSI']
+  };
+  document.getElementById('viewTitle').textContent=titles[id][0];
+  document.getElementById('viewSub').textContent=titles[id][1];
+}
+
+function enterApp(){
+  document.getElementById('gate').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  document.getElementById('brandPill').textContent=state.brand;
+  renderAll(); showView('cascade');
+}
+function startWizard(){buildDemo(true);enterApp();}
+function startAI(){buildDemo(false);enterApp();}
+</script>
+</body>
+</html>
