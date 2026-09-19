@@ -14,6 +14,13 @@ Repo: AceSpurs/One-Plan-Live only (does not touch One-Plan or One-Plan-Lab).
 - Advisor tips scoped to account WSSI gap / filtered product (no new category concentration tips)
 - Phase 1–2 math, stores, gate, cascade/WSSI structure preserved; cascade still shows all accounts
 
+## Viz polish (PR #3 follow-up)
+
+- Sticky SSP metric column + sticky quarter headers inside scroll container (kills horizontal overflow feel)
+- Product meta (account / category / channel / WOH band / ASP) stays in product identity header; Channel band row removed from quarter matrix (numbers-only grid)
+- Red / amber risk counts (quarters · products) for filtered account next to balance banner
+- Plan Advisor tip rail collapsible/dockable (default open; preference in `localStorage`)
+
 ## Transport
 
 `index.html` assembler unchanged (n=4) + re-gzipped `ssp-payload/p0..p3.txt`.

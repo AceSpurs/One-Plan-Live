@@ -68,6 +68,13 @@ Account-scoped Product SSP — retail planners edit the product×quarter grid **
 - **Tips** = existing Advisor set scoped to filtered products / account WSSI gap (no category concentration tips — those are v1b)
 - Stores view untouched; gate/cascade/WSSI structure stay; cascade still lists all accounts; Product S&S is account-scoped
 
+### Viz polish
+
+- Sticky metric column + sticky quarter headers on the SSP grid scrollport
+- Product identity header holds account / category / channel / WOH / ASP; quarter matrix is numbers-only
+- Filtered-account red/amber risk counts (Q · P) beside the balance banner
+- Plan Advisor tip rail collapsible/dockable (default open)
+
 ### Transport note
 
 `index.html` is a small gzip assembler. Payload chunks live under `ssp-payload/p0.txt`…`p3.txt` (base64 gzip of the full SPA). Serve the repo root (e.g. Netlify / `npx serve .`) so relative fetches resolve. Do not open as a lone `file://` page.
