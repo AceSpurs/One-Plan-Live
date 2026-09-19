@@ -20,6 +20,41 @@ Plan the business in one place: **account plans** and **product stock & sales**,
 2. Account WSSI frames the marketplace (business planner)  
 3. Product stock & sales must balance to that frame (retail planners)
 
+## SSP Phase 1 (Product S&S)
+
+Product Stock & Sales Plan replaces the thin sales£ / stock-units table:
+
+- Per product × Y1 Q1–Q4: forecast, cancel% planned/actual, net sales, buy, open/close inventory, RTV%, target WOH13
+- Computed WOH13 and Unit Risk (Nike formulas)
+- Channel tag (Lifestyle vs Sporting goods) stored for Phase 2
+- Plan balance: **S&S £ = Σ(net sales units × ASP) + residual adj** across products (Y1 annual), aligned to Account WSSI
+- Wizard and AI demo seed full SSP fields
+- Exact WSSI↔S&S £ close via 2-dp ASP + residual `gbpAdj` on last SKU (cleared when ASP is edited)
+
+### Cancel rule (Phase 1)
+
+- Effective cancel% = planned if planned > actual/current, else actual/current
+- Net sales = forecast × (1 − effective_cancel/100)
+- Extra cancel (planned > actual) reduces net units and therefore inventory via rollforward
+
+### Rollforward
+
+`close = open + buy + RTV − net_sales`  
+Q2 open = Q1 close, etc. Q1 open from seeded opening stock.  
+RTV units = forecast × (RTV%/100), default RTV% = 4.
+
+### WOH13 / Unit Risk (Y1-only)
+
+For quarter q, RSU_3m ≈ that quarter's net sales units.  
+`WOH13 = EOP / (RSU_3m / 13)`  
+`Unit Risk = (WOH13 − Target_WOH13) × (RSU_3m / 13)`
+
+Phase 2 (not in this release): R/A/G risk flags, tip rail, ST% UI emphasis, deeper channel logic.
+
+### Transport note
+
+`index.html` is a small gzip assembler. Payload chunks live under `ssp-payload/p0.txt`…`p3.txt` (base64 gzip of the full SPA). Serve the repo root (e.g. Netlify / `npx serve .`) so relative fetches resolve. Do not open as a lone `file://` page.
+
 ## Team
 
 | Role | Focus |
@@ -30,11 +65,11 @@ Plan the business in one place: **account plans** and **product stock & sales**,
 
 ## Run locally
 
-Open `index.html` in a browser, or:
-
 ```bash
 npx serve .
 ```
+
+Then open the served URL (not raw file://).
 
 ## Deploy
 
