@@ -49,7 +49,14 @@ For quarter q, RSU_3m ≈ that quarter's net sales units.
 `WOH13 = EOP / (RSU_3m / 13)`  
 `Unit Risk = (WOH13 − Target_WOH13) × (RSU_3m / 13)`
 
-Phase 2 (not in this release): R/A/G risk flags, tip rail, ST% UI emphasis, deeper channel logic.
+### SSP Phase 2 (this PR branch)
+
+- R/A/G risk on closing inventory / WOH: stockout (close &lt; 0) Red; overstock (close &gt; 2× quarterly net) Amber, &gt; 3× Red; WOH outside channel band Amber
+- Channel WOH bands: Lifestyle/specialty 7–13, Sporting goods 18–22 (default Lifestyle); flags compare band vs computed WOH13 (target WOH remains editable)
+- Plan Advisor tip rail (ruleset v1): commercial tips for stockout, overstock, WOH out-of-band, gap vs WSSI, lifecycle
+- ST% surfaced: STD_RSU / (STD_RSU + Inventory_EOP) per quarter (inputs already in Phase 1 compute)
+
+Phase 1 math, plan-balance, wizard seeds, gate/cascade/WSSI/stores unchanged.
 
 ### Transport note
 
