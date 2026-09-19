@@ -49,14 +49,31 @@ For quarter q, RSU_3m ≈ that quarter's net sales units.
 `WOH13 = EOP / (RSU_3m / 13)`  
 `Unit Risk = (WOH13 − Target_WOH13) × (RSU_3m / 13)`
 
-### SSP Phase 2 (this PR branch)
+## SSP Phase 2
 
-- R/A/G risk on closing inventory / WOH: stockout (close &lt; 0) Red; overstock (close &gt; 2× quarterly net) Amber, &gt; 3× Red; WOH outside channel band Amber
+- R/A/G risk on closing inventory / WOH: stockout (close < 0) Red; overstock (close > 2× quarterly net) Amber, > 3× Red; WOH outside channel band Amber
 - Channel WOH bands: Lifestyle/specialty 7–13, Sporting goods 18–22 (default Lifestyle); flags compare band vs computed WOH13 (target WOH remains editable)
 - Plan Advisor tip rail (ruleset v1): commercial tips for stockout, overstock, WOH out-of-band, gap vs WSSI, lifecycle
 - ST% surfaced: STD_RSU / (STD_RSU + Inventory_EOP) per quarter (inputs already in Phase 1 compute)
 
-Phase 1 math, plan-balance, wizard seeds, gate/cascade/WSSI/stores unchanged.
+## Account SSP v1a (this branch)
+
+Account-scoped Product SSP — retail planners edit the product×quarter grid **filtered to a selected account**.
+
+- **Edit surface** = product×quarter SSP scoped to selected account (Phase 1–2 math preserved)
+- **primaryAccount** required on every SKU; wizard/AI seed an explicit account map; **Unassigned** bucket blocks green balance until fixed
+- **Closed categories**: Footwear / Apparel / Accessories / Equipment (editable on product; shown on chips)
+- **Filtered KPI/banner** = selected account Product S&S £ (Σ net×ASP for products in that account) vs **that account’s WSSI only**
+- **Category plans** = derived rollups only (pills under account picker) — no separate category keying grid
+- **Tips** = existing Advisor set scoped to filtered products / account WSSI gap (no category concentration tips — those are v1b)
+- Stores view untouched; gate/cascade/WSSI structure stay; cascade still lists all accounts; Product S&S is account-scoped
+
+### Viz polish
+
+- Sticky metric column + sticky quarter headers on the SSP grid scrollport
+- Product identity header holds account / category / channel / WOH / ASP; quarter matrix is numbers-only
+- Filtered-account red/amber risk counts (Q · P) beside the balance banner
+- Plan Advisor tip rail collapsible/dockable (default open)
 
 ### Transport note
 
@@ -82,4 +99,4 @@ Then open the served URL (not raw file://).
 
 Site: [one-plan-live.netlify.app](https://one-plan-live.netlify.app)
 
-Do **not** deploy over Lab or production showcase Netlify sites.
+Do **not** deploy over Lab or production showcase Netlify sites. Do **not** merge or deploy this PR until preview is confirmed.
