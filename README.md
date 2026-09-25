@@ -56,7 +56,7 @@ For quarter q, RSU_3m ≈ that quarter's net sales units.
 - Plan Advisor tip rail (ruleset v1): commercial tips for stockout, overstock, WOH out-of-band, gap vs WSSI, lifecycle
 - ST% surfaced: STD_RSU / (STD_RSU + Inventory_EOP) per quarter (inputs already in Phase 1 compute)
 
-## Account SSP v1a (this branch)
+## Account SSP v1a
 
 Account-scoped Product SSP — retail planners edit the product×quarter grid **filtered to a selected account**.
 
@@ -78,6 +78,17 @@ Account-scoped Product SSP — retail planners edit the product×quarter grid **
 ### Transport note
 
 `index.html` is a small gzip assembler. Payload chunks live under `ssp-payload/p0.txt`…`p3.txt` (base64 gzip of the full SPA). Serve the repo root (e.g. Netlify / `npx serve .`) so relative fetches resolve. Do not open as a lone `file://` page.
+
+
+## Account WSSI v1a
+
+Account WSSI view for the business planner — intentions and concentration only (no SSP math changes).
+
+- Intention per account: **Grow / Maintain / Reduce / Exit** (closed list; wizard/AI seed every account)
+- Share % of total WSSI with **amber >40%** / **red >50%** concentration flags
+- Sales £: en-GB thousands separators on display; plain number while focused (Viz #5)
+- Light hardcoded tips on the WSSI panel for concentration + missing intention
+- Does **not** change Product SSP math, WSSI→SSP auto-rebalance, stores picker, or category break (v1b)
 
 ## Team
 

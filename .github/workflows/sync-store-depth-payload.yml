@@ -1,0 +1,28 @@
+name: sync-store-depth-payload
+on:
+  workflow_dispatch:
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/account-wssi-v1a
+      - name: Fetch correct p1/p2
+        run: |
+          set -euo pipefail
+          BASE=https://account-wssi-payload-fix--one-plan-live.netlify.app
+          curl -fsSL "$BASE/p1.txt" -o ssp-payload/p1.txt
+          curl -fsSL "$BASE/p2.txt" -o ssp-payload/p2.txt
+          md5sum ssp-payload/p1.txt ssp-payload/p2.txt
+          test "$(md5sum ssp-payload/p1.txt | awk '{print $1}')" = "1e8cbb791097fcd96079a6c676a18485"
+          test "$(md5sum ssp-payload/p2.txt | awk '{print $1}')" = "ee0697f620a131bdba88b5952a281349"
+          python3 -c "import base64,gzip; from pathlib import Path; b=''.join(Path(f'ssp-payload/p{i}.txt').read_text() for i in range(4)); h=gzip.decompress(base64.b64decode(b)).decode(); assert 'wssiStoreOwner' in h and 'onWssiStoreOwnerChange' in h; print('ok',len(h))"
+      - name: Commit and push
+        run: |
+          git config user.name "AceSpurs"
+          git config user.email "77009760+AceSpurs@users.noreply.github.com"
+          git add ssp-payload/p1.txt ssp-payload/p2.txt
+          if git diff --cached --quiet; then echo "No changes"; else git commit -m "Fix store-depth Owner header payload cues (p1+p2)" && git push origin HEAD:feat/account-wssi-v1a; fi
