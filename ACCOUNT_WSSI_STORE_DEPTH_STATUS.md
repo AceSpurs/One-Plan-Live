@@ -1,7 +1,10 @@
 # Account WSSI — store-depth rebuild (draft)
 
-Branch: `feat/account-wssi-v1a`  
-Repo: AceSpurs/One-Plan-Live only (does not touch One-Plan or One-Plan-Lab).
+**PR:** https://github.com/AceSpurs/One-Plan-Live/pull/4  
+**Branch:** `feat/account-wssi-v1a`  
+**Tip:** `8e684089669990e030bc44073433ebe0145db719`  
+**Draft preview (HTTP 200):** https://account-wssi-store-depth--one-plan-live.netlify.app  
+**Repo:** AceSpurs/One-Plan-Live only (does not touch One-Plan or One-Plan-Lab).
 
 ## Shipped in this tip
 
@@ -22,6 +25,16 @@ Repo: AceSpurs/One-Plan-Live only (does not touch One-Plan or One-Plan-Lab).
 - WSSI→SSP auto-rebalance
 - Category break (v1b)
 - Changes to AceSpurs/One-Plan or One-Plan-Lab
+
+## Test plan (Andrew / BPE / Viz)
+
+- [ ] Owner required: clear owner → tip/flag; set owner → clears
+- [ ] ≥1 store; create gap Σ(store) ≠ account → soft flag (not hard block)
+- [ ] Top-down: change account WSSI with one store locked → unlocked absorb residual; locked fixed
+- [ ] Bottom-up: edit store £ → account WSSI unchanged; gap shown until reconcile-up
+- [ ] Reconcile-up: explicit action closes gap (account rises to store sum)
+- [ ] Concentration / intention still work (amber >40%, red >50%; Grow/Maintain/Reduce/Exit)
+- [ ] Account SSP / Product S&S still balances to **account** WSSI only
 
 ## Do not
 
