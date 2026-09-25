@@ -2,7 +2,7 @@
 
 **PR:** https://github.com/AceSpurs/One-Plan-Live/pull/4  
 **Branch:** `feat/account-wssi-v1a`  
-**Tip:** `8e684089669990e030bc44073433ebe0145db719`  
+**Tip:** *(pending owner-header push)*  
 **Draft preview (HTTP 200):** https://account-wssi-store-depth--one-plan-live.netlify.app  
 **Repo:** AceSpurs/One-Plan-Live only (does not touch One-Plan or One-Plan-Lab).
 
@@ -17,6 +17,7 @@
 7. Tabs on Account WSSI: **Account frame** | **Store plan**
 8. Thin v1a UX kept: intention Grow/Maintain/Reduce/Exit, share %, concentration amber >40% / red >50%, en-GB £, light tips
 9. Stores nav picker fixed (class=`sel`, shared `storePlanAccount` with Store plan tab)
+10. **Viz must-fix:** Store plan header repeats **Owner** (same planner owner field as Account frame)
 
 ## Explicitly out of scope
 
@@ -29,6 +30,7 @@
 ## Test plan (Andrew / BPE / Viz)
 
 - [ ] Owner required: clear owner → tip/flag; set owner → clears
+- [ ] Owner visible on **Store plan** tab header (not only Account frame)
 - [ ] ≥1 store; create gap Σ(store) ≠ account → soft flag (not hard block)
 - [ ] Top-down: change account WSSI with one store locked → unlocked absorb residual; locked fixed
 - [ ] Bottom-up: edit store £ → account WSSI unchanged; gap shown until reconcile-up
@@ -40,4 +42,4 @@
 
 - Do **not** merge until Andrew confirms after BPE/Viz  
 - Do **not** deploy to production  
-- Draft Netlify preview only  
+- Draft Netlify preview only
